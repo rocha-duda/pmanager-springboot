@@ -13,6 +13,8 @@ import com.rochaduda.pmanager.domain.entity.Project;
 import com.rochaduda.pmanager.infrastructure.dto.ProjectDTO;
 import com.rochaduda.pmanager.infrastructure.dto.SaveProjectDataDTO;
 
+import jakarta.validation.Valid;
+
 import static com.rochaduda.pmanager.infrastructure.controller.RestConstants.PATH_PROJECTS;
 
 
@@ -27,7 +29,7 @@ public class ProjectRestResource {
     private final ProjectService projectService;
 
     @PostMapping
-    public ResponseEntity<ProjectDTO> createProject(@RequestBody SaveProjectDataDTO saveProjectDataDTO){
+    public ResponseEntity<ProjectDTO> createProject(@RequestBody @Valid SaveProjectDataDTO saveProjectDataDTO){
        Project project = projectService.createProject(saveProjectDataDTO);
 
        return ResponseEntity
