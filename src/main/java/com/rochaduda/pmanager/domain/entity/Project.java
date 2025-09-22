@@ -1,6 +1,7 @@
 package com.rochaduda.pmanager.domain.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.rochaduda.pmanager.domain.model.ProjectStatus;
 
@@ -11,6 +12,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,9 +50,13 @@ public class Project {
     @Enumerated(EnumType.STRING) 
     private ProjectStatus status;
 
-    
-
-    
+    @ManyToMany
+    @JoinTable(
+        name = "project_member",
+        joinColumns = @JoinColumn(name = "project_id"),
+        inverseJoinColumns = @JoinColumn(name = "member_id")
+    )
+    private List<Member> members;
 
     
 }

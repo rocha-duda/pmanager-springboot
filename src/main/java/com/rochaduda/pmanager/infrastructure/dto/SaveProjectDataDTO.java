@@ -2,6 +2,7 @@ package com.rochaduda.pmanager.infrastructure.dto;
 
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
@@ -27,6 +28,8 @@ public class SaveProjectDataDTO {
 
 
     private final String status;
+
+    private final Set<String> memberIds;
 
     @AssertTrue(message = "Dates are not consistent")
     private boolean isInitialDateBeforeFinalDate(){
