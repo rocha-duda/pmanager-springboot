@@ -15,13 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rochaduda.pmanager.domain.applicationservice.MemberService;
-import com.rochaduda.pmanager.domain.applicationservice.ProjectService;
 import com.rochaduda.pmanager.domain.entity.Member;
-import com.rochaduda.pmanager.domain.entity.Project;
 import com.rochaduda.pmanager.infrastructure.dto.MemberDTO;
-import com.rochaduda.pmanager.infrastructure.dto.ProjectDTO;
 import com.rochaduda.pmanager.infrastructure.dto.SaveMemberDataDTO;
-import com.rochaduda.pmanager.infrastructure.dto.SaveProjectDataDTO;
+
 
 import jakarta.validation.Valid;
 

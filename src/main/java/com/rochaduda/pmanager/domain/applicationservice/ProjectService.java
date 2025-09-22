@@ -15,7 +15,6 @@ import com.rochaduda.pmanager.domain.exception.DuplicateProjectException;
 import com.rochaduda.pmanager.domain.exception.InvalidProjectStatusException;
 import com.rochaduda.pmanager.domain.exception.ProjectNotFoundException;
 import com.rochaduda.pmanager.domain.model.ProjectStatus;
-import com.rochaduda.pmanager.domain.repository.MemberRepository;
 import com.rochaduda.pmanager.domain.repository.ProjectRepository;
 import com.rochaduda.pmanager.infrastructure.dto.SaveProjectDataDTO;
 
