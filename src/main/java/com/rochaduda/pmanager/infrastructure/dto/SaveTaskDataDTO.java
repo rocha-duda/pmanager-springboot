@@ -22,4 +22,8 @@ public class SaveTaskDataDTO {
 
     private final String status;
 
+    private final String projectId;
+
+    private final String memberId;
+
 }

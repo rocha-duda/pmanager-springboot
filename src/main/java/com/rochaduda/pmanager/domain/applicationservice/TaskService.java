@@ -1,7 +1,11 @@
 package com.rochaduda.pmanager.domain.applicationservice;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Service;
 
+import com.rochaduda.pmanager.domain.entity.Member;
+import com.rochaduda.pmanager.domain.entity.Project;
 import com.rochaduda.pmanager.domain.entity.Task;
 import com.rochaduda.pmanager.domain.exception.InvalidTaskStatusException;
 import com.rochaduda.pmanager.domain.exception.TaskNotFoundException;
@@ -16,20 +20,46 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TaskService {
     
+    private final MemberService memberService;
+    private final ProjectService projectService;
     private final TaskRepository taskRepository;
 
     @Transactional
     public Task createTask(SaveTaskDataDTO saveTaskData){
+
+        Project project = getProjectIfPossible(saveTaskData.getProjectId());
+
+        Member member = getMemberIfPossible(saveTaskData.getMemberId());
         
         Task task = Task.builder()
                         .title(saveTaskData.getTitle())
                         .description(saveTaskData.getDescription())
                         .numberOfDays(saveTaskData.getNumberOfDays())
                         .status(TaskStatus.PENDING)
+                        .project(project)
+                        .assignedMember(member)
                         .build();
 
         taskRepository.save(task);
         return task;
+    }
+
+    private Member getMemberIfPossible(String memberId) {
+        Member member = null;
+
+         if (!Objects.isNull(memberId)){
+            member = memberService.loadMemberById(memberId);
+         }
+        return member;
+    }
+
+    private Project getProjectIfPossible(String projectId) {
+        Project project = null;
+
+         if (!Objects.isNull(projectId)){
+            project = projectService.loadProject(projectId);
+         }
+        return project;
     }
 
     public Task loadTask(String taskId ){
@@ -51,12 +81,18 @@ public class TaskService {
     @Transactional
     public Task updateTask(String taskId, SaveTaskDataDTO saveTaskData){
         
+        Project project = getProjectIfPossible(saveTaskData.getProjectId());
+
+        Member member = getMemberIfPossible(saveTaskData.getMemberId());
+        
         Task task = loadTask(taskId);
 
         task.setTitle(saveTaskData.getTitle());
         task.setDescription(saveTaskData.getDescription());
         task.setStatus(convertToTaskStatus(saveTaskData.getStatus()));
         task.setNumberOfDays(saveTaskData.getNumberOfDays());
+        task.setProject(project);
+        task.setAssignedMember(member);
 
         return task;
     }

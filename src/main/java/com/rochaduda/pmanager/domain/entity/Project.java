@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -57,6 +58,10 @@ public class Project {
         inverseJoinColumns = @JoinColumn(name = "member_id")
     )
     private List<Member> members;
+
+    
+    @OneToMany(mappedBy = "project")
+    private List<Task> tasks;
 
     
 }
