@@ -1,5 +1,7 @@
 package com.rochaduda.pmanager.infrastructure.dto;
 
+import java.util.Optional;
+
 import com.rochaduda.pmanager.domain.entity.Task;
 import com.rochaduda.pmanager.domain.model.TaskStatus;
 
@@ -23,8 +25,8 @@ public class TaskDTO {
             task.getDescription(),
             task.getNumberOfDays(),
             task.getStatus(),
-            ProjectDTO.create(task.getProject()),
-            MemberDTO.create(task.getAssignedMember())
+            Optional.ofNullable(task.getProject()).map(ProjectDTO::create).orElse(null),
+            Optional.ofNullable(task.getAssignedMember()).map(MemberDTO::create).orElse(null)
             );
     }
 }

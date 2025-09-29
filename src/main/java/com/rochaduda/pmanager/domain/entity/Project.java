@@ -60,7 +60,7 @@ public class Project {
     private List<Member> members;
 
     
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", orphanRemoval = true)
     private List<Task> tasks;
 
     
