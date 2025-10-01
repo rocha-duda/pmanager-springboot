@@ -1,7 +1,11 @@
 package com.rochaduda.pmanager.domain.applicationservice;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.rochaduda.pmanager.domain.entity.Member;
@@ -96,6 +100,20 @@ public class TaskService {
 
         return task;
     }
+
+    public Page<Task> findTasks(
+        String projectId,
+        String memberId, 
+        String statusStr,
+        String partialTitle,
+        Integer page
+    ){
+       return taskRepository.find(projectId, memberId, 
+       Optional.ofNullable(statusStr).map(this::convertToTaskStatus).orElse(null)
+       , partialTitle, PageRequest.of(Optional.ofNullable(page).orElse(0), 3));
+    }
+
+    
 
     private TaskStatus convertToTaskStatus(String statusString){
         try{
