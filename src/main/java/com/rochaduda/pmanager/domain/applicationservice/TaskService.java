@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.rochaduda.pmanager.domain.entity.Member;
@@ -106,11 +109,15 @@ public class TaskService {
         String memberId, 
         String statusStr,
         String partialTitle,
-        Integer page
+        Integer page,
+        String direction,
+        List<String> properties
     ){
+        Sort sort = Sort.by(Direction.DESC, "title");
+
        return taskRepository.find(projectId, memberId, 
        Optional.ofNullable(statusStr).map(this::convertToTaskStatus).orElse(null)
-       , partialTitle, PageRequest.of(Optional.ofNullable(page).orElse(0), 3));
+       , partialTitle, PageRequest.of(Optional.ofNullable(page).orElse(0), 3, sort));
     }
 
     

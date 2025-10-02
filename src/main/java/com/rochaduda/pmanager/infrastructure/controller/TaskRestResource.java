@@ -20,6 +20,7 @@ import com.rochaduda.pmanager.domain.applicationservice.TaskService;
 import com.rochaduda.pmanager.domain.entity.Task;
 import com.rochaduda.pmanager.infrastructure.dto.SaveTaskDataDTO;
 import com.rochaduda.pmanager.infrastructure.dto.TaskDTO;
+import com.rochaduda.pmanager.infrastructure.util.SortProperties;
 
 import jakarta.validation.Valid;
 
@@ -76,9 +77,19 @@ public class TaskRestResource {
         @RequestParam(value = "memberId", required = false) String memberId, 
         @RequestParam(value = "status", required = false) String status,
         @RequestParam(value = "partialTitle", required = false) String partialTitle,
-        @RequestParam(value = "page", required = false) Integer page
+        @RequestParam(value = "page", required = false) Integer page,
+        @RequestParam(value = "direction", required = false) String direction,
+        @RequestParam(value = "sort", required = false) SortProperties properties
     ) {
-       Page<Task> tasks =  taskService.findTasks(projectId, memberId, status, partialTitle, page);
+       Page<Task> tasks =  taskService.findTasks(
+        projectId, 
+        memberId, 
+        status, 
+        partialTitle, 
+        page, 
+        direction, 
+        properties.getSortPropertieList());
+        
         return ResponseEntity.ok(tasks.stream().map(TaskDTO::create).toList());
     }
 }
