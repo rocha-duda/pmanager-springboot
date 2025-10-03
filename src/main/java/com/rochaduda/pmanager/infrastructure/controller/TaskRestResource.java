@@ -2,6 +2,7 @@ package com.rochaduda.pmanager.infrastructure.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -87,8 +88,12 @@ public class TaskRestResource {
         status, 
         partialTitle, 
         page, 
-        direction, 
-        properties.getSortPropertieList());
+        direction,
+        Optional.ofNullable(properties)
+            .map(SortProperties::getSortPropertieList)
+            .orElse(List.of())
+        ); 
+        
         
         return ResponseEntity.ok(tasks.stream().map(TaskDTO::create).toList());
     }

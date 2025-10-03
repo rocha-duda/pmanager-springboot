@@ -6,9 +6,6 @@ import java.util.Optional;
 
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.rochaduda.pmanager.domain.entity.Member;
@@ -18,7 +15,9 @@ import com.rochaduda.pmanager.domain.exception.InvalidTaskStatusException;
 import com.rochaduda.pmanager.domain.exception.TaskNotFoundException;
 import com.rochaduda.pmanager.domain.model.TaskStatus;
 import com.rochaduda.pmanager.domain.repository.TaskRepository;
+import com.rochaduda.pmanager.infrastructure.config.AppConfigProperties;
 import com.rochaduda.pmanager.infrastructure.dto.SaveTaskDataDTO;
+import com.rochaduda.pmanager.infrastructure.util.PaginationHelper;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +29,7 @@ public class TaskService {
     private final MemberService memberService;
     private final ProjectService projectService;
     private final TaskRepository taskRepository;
+    private final AppConfigProperties props;
 
     @Transactional
     public Task createTask(SaveTaskDataDTO saveTaskData){
@@ -113,11 +113,11 @@ public class TaskService {
         String direction,
         List<String> properties
     ){
-        Sort sort = Sort.by(Direction.DESC, "title");
 
        return taskRepository.find(projectId, memberId, 
-       Optional.ofNullable(statusStr).map(this::convertToTaskStatus).orElse(null)
-       , partialTitle, PageRequest.of(Optional.ofNullable(page).orElse(0), 3, sort));
+       Optional.ofNullable(statusStr).map(this::convertToTaskStatus).orElse(null), 
+       partialTitle, 
+       PaginationHelper.createPageable(page, props.getPageSize(), direction, properties));
     }
 
     
