@@ -117,7 +117,7 @@ public class TaskService {
        return taskRepository.find(projectId, memberId, 
        Optional.ofNullable(statusStr).map(this::convertToTaskStatus).orElse(null), 
        partialTitle, 
-       PaginationHelper.createPageable(page, props.getPageSize(), direction, properties));
+       PaginationHelper.createPageable(page, props.getGeneral().getPageSize(), direction, properties));
     }
 
     
