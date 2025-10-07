@@ -31,7 +31,7 @@ public class AuthenticationService {
             try{
             apiKeyService.validateApiKey(apiKey);
             }catch(ApiKeyNotFoundException | ApiKeyExpiredException e){
-                throw new BadCredentialsException("API key is not valid: "+ apiKey);
+                throw new BadCredentialsException("API key is not valid: "+ apiKey, e);
             }
         }
 
