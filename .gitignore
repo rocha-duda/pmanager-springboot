@@ -31,3 +31,30 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Logs e temporários ###
+*.log
+*.tmp
+*.swp
+logs/
+.cache/
+
+### Sistema operacional ###
+.DS_Store
+Thumbs.db
+
+### Arquivos de ambiente e segredos ###
+.env
+.env.*
+application-local.properties
+application-dev.properties
+application-secret.properties
+application.yml
+application-local.yml
+application-dev.yml
+application-secret.yml
+
+### Backup ou arquivos gerados ###
+*.bak
+*.old
+*.orig
