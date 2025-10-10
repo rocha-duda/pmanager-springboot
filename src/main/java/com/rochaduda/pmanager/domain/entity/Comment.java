@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
+
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -30,6 +31,7 @@ public class Comment {
     private String description;
 
     @Column(name = "date", nullable = false, length = 300) 
+    @Builder.Default
     private LocalDateTime commenLocalDateTime = LocalDateTime.now();
 
     @ManyToOne

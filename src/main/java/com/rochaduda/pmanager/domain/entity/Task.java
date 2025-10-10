@@ -1,8 +1,6 @@
 package com.rochaduda.pmanager.domain.entity;
 
 
-import java.util.Optional;
-
 import com.rochaduda.pmanager.domain.model.TaskStatus;
 
 import jakarta.persistence.Column;
