@@ -1,6 +1,8 @@
 package com.rochaduda.pmanager.domain.entity;
 
 
+import java.util.Optional;
+
 import com.rochaduda.pmanager.domain.model.TaskStatus;
 
 import jakarta.persistence.Column;
@@ -49,5 +51,6 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "assignedMember")
-    private Member assignedMember; 
+    private Member assignedMember;
+
 }
