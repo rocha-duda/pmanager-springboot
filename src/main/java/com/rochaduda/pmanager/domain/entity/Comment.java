@@ -2,6 +2,8 @@ package com.rochaduda.pmanager.domain.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,9 +32,9 @@ public class Comment {
     @Column(name = "description", nullable = false, length = 300) 
     private String description;
 
-    @Column(name = "date", nullable = false, length = 300) 
-    @Builder.Default
-    private LocalDateTime commenLocalDateTime = LocalDateTime.now();
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "author")

@@ -12,7 +12,7 @@ public class CommentDTO {
   
   private final String id;
   private final String description;
-  private final LocalDateTime date;
+  private final LocalDateTime createdAt;
 
   private final TaskDTO task;
   private final MemberDTO author;
@@ -21,7 +21,7 @@ public class CommentDTO {
     return new CommentDTO(
       comment.getId(), 
       comment.getDescription(), 
-      comment.getCommenLocalDateTime(), 
+      comment.getCreatedAt(), 
       Optional.ofNullable(comment.getAssociatedTask()).map(TaskDTO::create).orElse(null),
       Optional.ofNullable(comment.getAuthor()).map(MemberDTO::create).orElse(null)
       );
