@@ -11,6 +11,7 @@ import com.rochaduda.pmanager.domain.repository.CommentRepository;
 //import com.rochaduda.pmanager.infrastructure.config.AppConfigProperties;
 import com.rochaduda.pmanager.infrastructure.dto.SaveCommentDataDTO;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,6 +22,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     //private final AppConfigProperties props;
 
+    @Transactional
     public Comment createComment(SaveCommentDataDTO saveCommentData){
       Task task = getTaskIfPossible(saveCommentData.getTaskId());
       Member author = getMemberIfPossible(saveCommentData.getAuthorId());

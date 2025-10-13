@@ -13,7 +13,6 @@ public class SaveCommentDataDTO {
   @Size(min=1, max=300, message = "Invalid comment")
   private final String description;
 
-  @NotNull
   private LocalDateTime createdAt;
 
   private final String taskId;
