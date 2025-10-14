@@ -5,6 +5,8 @@ import java.net.URI;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class CommentRestResource {
 
   private final CommentService commentService;
+  
   @PostMapping
   public ResponseEntity<CommentDTO> createComment(@RequestBody @Valid SaveCommentDataDTO saveCommentData){
       
@@ -39,5 +42,12 @@ public class CommentRestResource {
     .created(URI.create(PATH_COMMENTS + "/" + comment.getId()))
     .body(CommentDTO.create(comment));
     }
+  @GetMapping
+  public ResponseEntity<CommentDTO> loadComment(@PathVariable("id") String commentId){
+    Comment comment = commentService.loadComment(commentId);
+    return ResponseEntity.ok(
+      CommentDTO.create(comment)
+    );
+  }
   
 }

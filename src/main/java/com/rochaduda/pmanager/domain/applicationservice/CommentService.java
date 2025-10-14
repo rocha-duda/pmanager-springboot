@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.rochaduda.pmanager.domain.entity.Comment;
 import com.rochaduda.pmanager.domain.entity.Member;
 import com.rochaduda.pmanager.domain.entity.Task;
+import com.rochaduda.pmanager.domain.exception.CommentNotFoundException;
 import com.rochaduda.pmanager.domain.repository.CommentRepository;
 //import com.rochaduda.pmanager.infrastructure.config.AppConfigProperties;
 import com.rochaduda.pmanager.infrastructure.dto.SaveCommentDataDTO;
@@ -35,7 +36,12 @@ public class CommentService {
       commentRepository.save(comment);
       return comment;
     }
-    //oiii 
+
+    public Comment loadComment(String commentId){
+        return commentRepository
+            .findById(commentId)
+            .orElseThrow(() -> new CommentNotFoundException(commentId));
+    }
     
     
     private Member getMemberIfPossible(String memberId) {
