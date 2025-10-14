@@ -42,7 +42,7 @@ public class CommentRestResource {
     .created(URI.create(PATH_COMMENTS + "/" + comment.getId()))
     .body(CommentDTO.create(comment));
     }
-  @GetMapping
+  @GetMapping("/{id}")
   public ResponseEntity<CommentDTO> loadComment(@PathVariable("id") String commentId){
     Comment comment = commentService.loadComment(commentId);
     return ResponseEntity.ok(
