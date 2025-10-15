@@ -42,6 +42,11 @@ public class CommentService {
             .findById(commentId)
             .orElseThrow(() -> new CommentNotFoundException(commentId));
     }
+    @Transactional
+    public void delete(String commentId){
+       Comment comment = loadComment(commentId);
+       commentRepository.delete(comment);
+    }
     
     
     private Member getMemberIfPossible(String memberId) {
@@ -59,6 +64,8 @@ public class CommentService {
     }
     return task;
 }
+
+
 
 
 }

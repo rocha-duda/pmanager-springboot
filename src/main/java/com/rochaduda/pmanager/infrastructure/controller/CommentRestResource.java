@@ -5,6 +5,7 @@ import java.net.URI;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,12 +43,19 @@ public class CommentRestResource {
     .created(URI.create(PATH_COMMENTS + "/" + comment.getId()))
     .body(CommentDTO.create(comment));
     }
+  
   @GetMapping("/{id}")
   public ResponseEntity<CommentDTO> loadComment(@PathVariable("id") String commentId){
     Comment comment = commentService.loadComment(commentId);
     return ResponseEntity.ok(
       CommentDTO.create(comment)
-    );
+    );}
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteComment(@PathVariable("id") String commentId){
+    commentService.delete(commentId);
+    return ResponseEntity.noContent().build();
+
   }
   
 }
