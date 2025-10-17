@@ -1,7 +1,10 @@
 package com.rochaduda.pmanager.domain.applicationservice;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.rochaduda.pmanager.domain.entity.Comment;
@@ -9,8 +12,10 @@ import com.rochaduda.pmanager.domain.entity.Member;
 import com.rochaduda.pmanager.domain.entity.Task;
 import com.rochaduda.pmanager.domain.exception.CommentNotFoundException;
 import com.rochaduda.pmanager.domain.repository.CommentRepository;
+import com.rochaduda.pmanager.infrastructure.config.AppConfigProperties;
 //import com.rochaduda.pmanager.infrastructure.config.AppConfigProperties;
 import com.rochaduda.pmanager.infrastructure.dto.SaveCommentDataDTO;
+import com.rochaduda.pmanager.infrastructure.util.PaginationHelper;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +26,7 @@ public class CommentService {
     private final MemberService memberService;
     private final TaskService taskService;
     private final CommentRepository commentRepository;
-    //private final AppConfigProperties props;
+    private final AppConfigProperties props;
 
     @Transactional
     public Comment createComment(SaveCommentDataDTO saveCommentData){
@@ -64,7 +69,7 @@ public class CommentService {
     }
     return task;
 }
-//update 
+ 
     @Transactional
     public Comment updateComment(String commentId, SaveCommentDataDTO saveCommentData){
         Task task = getTaskIfPossible(saveCommentData.getTaskId());
@@ -79,7 +84,20 @@ public class CommentService {
         return comment;
 
     }
+  //get comments
+    public Page<Comment> findComments(
+        String taskId,
+        String memberId, 
+        
+        String description,
+        Integer page,
+        String direction,
+        List<String> properties
+    ){
 
+       return commentRepository.find();
+      // PaginationHelper.createPageable(page, props.getGeneral().getPageSize(), direction, properties));
+    }
 
 
 
