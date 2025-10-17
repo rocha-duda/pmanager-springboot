@@ -1,0 +1,71 @@
+package com.rochaduda.pmanager.infrastructure.controller;
+
+import java.net.URI;
+
+
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.rochaduda.pmanager.domain.applicationservice.CommentService;
+import com.rochaduda.pmanager.domain.entity.Comment;
+import com.rochaduda.pmanager.domain.entity.Task;
+import com.rochaduda.pmanager.infrastructure.dto.CommentDTO;
+import com.rochaduda.pmanager.infrastructure.dto.SaveCommentDataDTO;
+import com.rochaduda.pmanager.infrastructure.dto.SaveTaskDataDTO;
+import com.rochaduda.pmanager.infrastructure.dto.TaskDTO;
+
+import jakarta.validation.Valid;
+
+import static com.rochaduda.pmanager.infrastructure.controller.RestConstants.PATH_COMMENTS;
+
+
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping(PATH_COMMENTS)
+@RequiredArgsConstructor
+public class CommentRestResource {
+
+  private final CommentService commentService;
+  
+  @PostMapping
+  public ResponseEntity<CommentDTO> createComment(@RequestBody @Valid SaveCommentDataDTO saveCommentData){
+      
+    Comment comment = commentService.createComment(saveCommentData);
+
+     return ResponseEntity
+    .created(URI.create(PATH_COMMENTS + "/" + comment.getId()))
+    .body(CommentDTO.create(comment));
+    }
+  
+  @GetMapping("/{id}")
+  public ResponseEntity<CommentDTO> loadComment(@PathVariable("id") String commentId){
+    Comment comment = commentService.loadComment(commentId);
+    return ResponseEntity.ok(
+      CommentDTO.create(comment)
+    );}
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteComment(@PathVariable("id") String commentId){
+    commentService.delete(commentId);
+    return ResponseEntity.noContent().build();
+
+  }
+
+      @PutMapping("/{id}")
+      public ResponseEntity<CommentDTO> updateComment(@PathVariable("id") String commentId, @RequestBody @Valid SaveCommentDataDTO saveCommentData){
+
+        Comment comment = commentService.updateComment(commentId, saveCommentData);
+        return ResponseEntity.ok(CommentDTO.create(comment));
+    }
+  
+}
