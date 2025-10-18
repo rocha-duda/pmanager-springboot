@@ -3,7 +3,7 @@ package com.rochaduda.pmanager.domain.applicationservice;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import com.rochaduda.pmanager.domain.entity.Task;
 import com.rochaduda.pmanager.domain.exception.CommentNotFoundException;
 import com.rochaduda.pmanager.domain.repository.CommentRepository;
 import com.rochaduda.pmanager.infrastructure.config.AppConfigProperties;
-//import com.rochaduda.pmanager.infrastructure.config.AppConfigProperties;
 import com.rochaduda.pmanager.infrastructure.dto.SaveCommentDataDTO;
 import com.rochaduda.pmanager.infrastructure.util.PaginationHelper;
 
@@ -105,7 +104,5 @@ public class CommentService {
             createdAt, 
             PaginationHelper.createPageable(page, props.getGeneral().getPageSize(), direction, properties));
     }
-
-
 
 }
