@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.rochaduda.pmanager.domain.entity.Comment;
-import com.rochaduda.pmanager.domain.model.TaskStatus;
+
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, String> {

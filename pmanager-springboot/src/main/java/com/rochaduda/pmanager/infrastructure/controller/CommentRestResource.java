@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rochaduda.pmanager.domain.applicationservice.CommentService;
 import com.rochaduda.pmanager.domain.entity.Comment;
-import com.rochaduda.pmanager.domain.entity.Task;
 import com.rochaduda.pmanager.infrastructure.dto.CommentDTO;
 import com.rochaduda.pmanager.infrastructure.dto.SaveCommentDataDTO;
-import com.rochaduda.pmanager.infrastructure.dto.SaveTaskDataDTO;
-import com.rochaduda.pmanager.infrastructure.dto.TaskDTO;
+
 
 import jakarta.validation.Valid;
 
