@@ -1,5 +1,6 @@
 package com.rochaduda.pmanager.domain.applicationservice;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -84,19 +85,25 @@ public class CommentService {
         return comment;
 
     }
-  //get comments
+
     public Page<Comment> findComments(
         String taskId,
-        String memberId, 
+        String author, 
         
         String description,
         Integer page,
         String direction,
+        LocalDateTime createdAt,
         List<String> properties
     ){
 
-       return commentRepository.find();
-      // PaginationHelper.createPageable(page, props.getGeneral().getPageSize(), direction, properties));
+
+       return commentRepository.find(
+            taskId, 
+            author, 
+            description, 
+            createdAt, 
+            PaginationHelper.createPageable(page, props.getGeneral().getPageSize(), direction, properties));
     }
 
 
