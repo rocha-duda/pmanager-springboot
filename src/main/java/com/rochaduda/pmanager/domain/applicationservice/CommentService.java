@@ -52,12 +52,6 @@ public class CommentService {
        commentRepository.delete(comment);
     }
     
-    public Page<Comment> findCommentsByTaskId(String taskId, Pageable pageable) {
-    return commentRepository.findByTaskId(taskId, pageable);
-}
-
-
-    
     
     private Member getMemberIfPossible(String memberId) {
         Member member = null;
