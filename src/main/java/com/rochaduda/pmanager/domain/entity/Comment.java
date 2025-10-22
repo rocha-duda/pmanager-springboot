@@ -42,5 +42,5 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "task_id")
-    private Task associatedTask;
+    private Task task;
 }   
